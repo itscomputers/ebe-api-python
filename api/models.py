@@ -20,6 +20,24 @@ class ModelMixin:
 
         return model
 
+    @classmethod
+    def bulk_find_or_create(cls, numbers):
+        models = []
+        for number in numbers:
+            model = cls.find(number)
+
+            if model is None:
+                model = cls(number=number)
+
+            if model.invalid():
+                model.compute()
+                db.session.add(model)
+
+            models.append(model)
+
+        db.session.commit()
+        return models
+
     def invalid(self):
         return NotImplemented
 
