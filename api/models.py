@@ -9,20 +9,21 @@ class ModelMixin:
         return cls.query.filter_by(number=number).first()
 
     @classmethod
-    def find_or_create(cls, number, attr=None, value=None):
+    def find_or_create(cls, number, attrs=None):
         model = cls.find(number)
         if model is None:
-            print("build model")
             model = cls(number=number)
-            if attr is not None and value is not None:
-                print("with {}={}".format(attr, value))
-                setattr(model, attr, value)
+            if attrs is not None:
+                for key, value in attrs.items():
+                    setattr(model, key, value)
             model.save()
 
-        print("model: {}".format(model))
         return model
 
     def invalid(self):
+        return NotImplemented
+
+    def compute(self):
         return NotImplemented
 
     def save(self):

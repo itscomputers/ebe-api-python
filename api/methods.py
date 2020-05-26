@@ -17,13 +17,13 @@ def is_prime(number):
 
 def next_prime(number):
     prime = ebe.next_prime(number)
-    Prime.find_or_create(number=prime, attr='prime', value=True)
+    Prime.find_or_create(number=prime, attrs={'prime': True})
     return prime
 
 def random_prime(digits):
     lower = 10**(digits - 1)
     prime = ebe.next_prime(randint(lower, 10*lower))
-    Prime.find_or_create(number=prime, attr='prime', value=True)
+    Prime.find_or_create(number=prime, attrs={'prime': True})
     return prime
 
 def factorization(number):
