@@ -110,7 +110,8 @@ def test_request_with_operation_error():
     required_args = {'integer': int}
     expected_errors = {'operation': 'unknown error occurred'}
     req = Request(args, function, required_args)
-    assert req.process() == {'err': expected_errors, 'ok': None}
+    with pytest.raises(ValueError):
+        req.process()
 
 def test_successful_request_with_one_arg():
     args = {'integer': '-123'}

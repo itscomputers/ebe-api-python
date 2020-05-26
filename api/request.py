@@ -45,7 +45,7 @@ class RequestParser:
                 if self.errors.exclude(key):
                     self.parsed_args[key] = value
 
-            except TypeError:
+            except ValueError:
                 self.errors.add(key, "key was provided but could not be parsed")
 
         else:
@@ -78,10 +78,9 @@ class Request:
 
 
     def process(self, return_type='default'):
-        if self.errors.present():
-            return self.render(return_type)
+        if self.errors.empty():
+            self.apply()
 
-        self.apply()
         return self.render(return_type)
 
 
