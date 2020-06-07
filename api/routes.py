@@ -1,13 +1,8 @@
 from random import randint
 from flask import jsonify, request
 
-from api import api, methods
+from api import api, methods, utils
 from api.request import Request
-
-#-----------------------------
-
-def parse_to_int_list(string):
-    return list(map(int, string.split(',')))
 
 #-----------------------------
 
@@ -28,7 +23,7 @@ def gcd():
     return jsonify(Request(
         request.args,
         methods.gcd,
-        required_args={'numbers': parse_to_int_list},
+        required_args={'numbers': utils.string_to_int_list},
     ).process(
         str
     ))
@@ -40,7 +35,7 @@ def lcm():
     return jsonify(Request(
         request.args,
         methods.lcm,
-        required_args={'numbers': parse_to_int_list},
+        required_args={'numbers': utils.string_to_int_list},
     ).process(
         str
     ))
@@ -52,7 +47,7 @@ def bezout():
     return jsonify(Request(
         request.args,
         methods.bezout,
-        required_args={'numbers': parse_to_int_list},
+        required_args={'numbers': utils.string_to_int_list},
         restrictions={'numbers': {'count': 2}},
     ).process(
         lambda x: list(map(str, x))
