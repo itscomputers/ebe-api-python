@@ -13,12 +13,10 @@ def bezout(numbers):
     return ebe.bezout(*numbers)
 
 def is_prime(number):
-    return Prime.find_or_create(str(number)).prime
+    return ebe.is_prime(number)
 
 def next_prime(number):
-    prime = ebe.next_prime(number)
-    Prime.find_or_create(number=str(prime), attrs={'prime': True})
-    return prime
+    return ebe.next_prime(number)
 
 def random_prime(digits):
     lower = 10**(digits - 1)
