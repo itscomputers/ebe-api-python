@@ -56,14 +56,15 @@ class ModelMixin:
 #===========================================================
 
 class Prime(db.Model, ModelMixin):
-    number = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    number = db.Column(db.String(4096), index=True)
     prime = db.Column(db.Boolean, index=True)
 
     def __repr__(self):
         return "<Prime number={}, prime={}>".format(self.number, self.prime)
 
     def compute(self):
-        self.prime = ebe.is_prime(self.number)
+        self.prime = ebe.is_prime(int(self.number))
         return self
 
     def invalid(self):
@@ -72,14 +73,15 @@ class Prime(db.Model, ModelMixin):
 #===========================================================
 
 class Factorization(db.Model, ModelMixin):
-    number = db.Column(db.Integer, primary_key=True)
-    factors = db.Column(db.String)
+    id = db.Column(db.Integer, primary_key=True)
+    number = db.Column(db.String(4096), index=True)
+    factors = db.Column(db.String(4096))
 
     def __repr__(self):
         return "<Factorization number={}, factors={}>".format(self.number, self.factors)
 
     def compute(self):
-        factorization = ebe.factor(self.number)
+        factorization = ebe.factor(int(self.number))
         factors = sorted(Counter(factorization).elements())
         self.factors = ','.join(map(str, factors))
         return self
