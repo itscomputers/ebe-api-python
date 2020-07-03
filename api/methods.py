@@ -22,9 +22,7 @@ def next_prime(number):
 
 def random_prime(digits):
     lower = 10**(digits - 1)
-    prime = ebe.next_prime(randint(lower, 10*lower))
-    Prime.find_or_create(number=str(prime), attrs={'prime': True})
-    return prime
+    return next_prime(randint(lower, 10*lower))
 
 def factorization(number):
     return Factorization.find_or_create(str(number)).factor_list()
