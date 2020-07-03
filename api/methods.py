@@ -13,25 +13,23 @@ def bezout(numbers):
     return ebe.bezout(*numbers)
 
 def is_prime(number):
-    return Prime.find_or_create(number).prime
+    return Prime.find_or_create(str(number)).prime
 
 def next_prime(number):
     prime = ebe.next_prime(number)
-    Prime.find_or_create(number=prime, attrs={'prime': True})
+    Prime.find_or_create(number=str(prime), attrs={'prime': True})
     return prime
 
 def random_prime(digits):
     lower = 10**(digits - 1)
-    prime = ebe.next_prime(randint(lower, 10*lower))
-    Prime.find_or_create(number=prime, attrs={'prime': True})
-    return prime
+    return next_prime(randint(lower, 10*lower))
 
 def factorization(number):
-    return Factorization.find_or_create(number).factor_list()
+    return Factorization.find_or_create(str(number)).factor_list()
 
 def two_squares(number):
-    return Factorization.find_or_create(number).two_squares()
+    return Factorization.find_or_create(str(number)).two_squares()
 
 def four_squares(number):
-    return Factorization.find_or_create(number).four_squares()
+    return Factorization.find_or_create(str(number)).four_squares()
 
