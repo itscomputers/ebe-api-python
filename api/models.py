@@ -56,7 +56,8 @@ class ModelMixin:
 #===========================================================
 
 class Prime(db.Model, ModelMixin):
-    number = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    number = db.Column(db.Integer, index=True)
     prime = db.Column(db.Boolean, index=True)
 
     def __repr__(self):
@@ -72,7 +73,8 @@ class Prime(db.Model, ModelMixin):
 #===========================================================
 
 class Factorization(db.Model, ModelMixin):
-    number = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    number = db.Column(db.Integer, index=True)
     factors = db.Column(db.String)
 
     def __repr__(self):
