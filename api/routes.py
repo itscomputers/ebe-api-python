@@ -1,14 +1,64 @@
 from random import randint
-from flask import jsonify, request
+from flask import jsonify, redirect, render_template, request, url_for
 
 from api import api, methods, utils
 from api.request import Request
 
 #-----------------------------
 
-@api.route('/', methods=['GET'])
+@api.route('/')
 def home():
     return "<h1>ebe -- a number theory library in python</h1>"
+
+#-----------------------------
+
+def build_route(method, question, build_answer, number=None):
+    if request.method == 'POST':
+        return redirect(url_for('{}_specific'.format(method), number=request.form['number']))
+    if number is not None:
+        question = question.replace('it', format(number))
+    answer = build_answer(number) if number is not None else None
+    return render_template('question_answer.html', question=question, answer=answer)
+
+#-----------------------------
+
+@api.route('/is_prime/', methods=['GET', 'POST'])
+@api.route('/is_prime', methods=['GET', 'POST'])
+def is_it_prime():
+    return build_route(
+        'is_it_prime', 
+        'is it prime?', 
+        lambda x: methods.is_prime(x, display=True)
+    )
+
+@api.route('/is_prime/<int:number>', methods=['GET', 'POST'])
+def is_it_prime_specific(number):
+    return build_route(
+        'is_it_prime', 
+        'is it prime?', 
+        lambda x: methods.is_prime(x, display=True),
+        number
+    )
+
+#-----------------------------
+
+@api.route('/factorization/', methods=['GET', 'POST'])
+@api.route('/factorization', methods=['GET', 'POST'])
+def factor():
+    return build_route(
+        'factor',
+        'how does it factor?',
+        lambda x: methods.factorization(x, display=True)
+    )
+
+@api.route('/factorization/<int:number>', methods=['GET', 'POST'])
+def factor_specific(number):
+    return build_route(
+        'factor',
+        'how does it factor?',
+        lambda x: methods.factorization(x, display=True),
+        number
+    )
 
 #-----------------------------
 

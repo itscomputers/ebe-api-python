@@ -1,0 +1,22 @@
+.question, .answer {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.answer {
+    font-weight: bold;
+}
+
+.question {
+    color: #49a8de;
+}
+
+.number-form {
+    text-align: center;
+}
+
+#number {
+    width: 75%;
+    max-width: 450px;
+}
