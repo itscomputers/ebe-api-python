@@ -26,17 +26,37 @@ def build_route(method, question, build_answer, number=None):
 @api.route('/is_prime', methods=['GET', 'POST'])
 def is_it_prime():
     return build_route(
-        'is_it_prime', 
-        'is it prime?', 
+        'is_it_prime',
+        'is it prime?',
         lambda x: methods.is_prime(x, display=True)
     )
 
 @api.route('/is_prime/<int:number>', methods=['GET', 'POST'])
 def is_it_prime_specific(number):
     return build_route(
-        'is_it_prime', 
-        'is it prime?', 
+        'is_it_prime',
+        'is it prime?',
         lambda x: methods.is_prime(x, display=True),
+        number
+    )
+
+#-----------------------------
+
+@api.route('/next_prime/', methods=['GET', 'POST'])
+@api.route('/next_prime', methods=['GET', 'POST'])
+def find_next_prime():
+    return build_route(
+        'find_next_prime',
+        'what\'s the next prime after it?',
+        lambda x: methods.next_prime(x)
+    )
+
+@api.route('/next_prime/<int:number>', methods=['GET', 'POST'])
+def find_next_prime_specific(number):
+    return build_route(
+        'find_next_prime',
+        'what\'s the next prime after it?',
+        lambda x: methods.next_prime(x),
         number
     )
 
