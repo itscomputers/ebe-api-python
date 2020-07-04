@@ -43,7 +43,11 @@
             </article>
             <ul>
                 {% for item in ebe_list %}
-                    <li><a href="{{ url_for(item['method']) }}">{{ item['question'] }}</a></li>
+                    {% if item['method'] in request.path %}
+                        <li><a href="{{ url_for(item['method']) }}" class="active">{{ item['question'] }}</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for(item['method']) }}">{{ item['question'] }}</a></li>
+                    {% endif %}
                 {% endfor %}
             </ul>
             <footer>
