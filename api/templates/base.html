@@ -32,10 +32,20 @@
             </div>
         </aside> 
         <main>
-            {% if header %}<h1>{{ header }}</h1>{% endif %}
+            <h1>ebe</h1>
+            <ul>
+                <li>a number theory library in python</li>
+                <li><a href="https://github.com/itscomputers/ebe-python">see it on github</a></li>
+            </ul>
+            <hr>
             <article>
                 {% block content %}{% endblock %}
             </article>
+            <ul>
+                {% for item in ebe_list %}
+                    <li><a href="{{ url_for(item['method']) }}">{{ item['question'] }}</a></li>
+                {% endfor %}
+            </ul>
             <footer>
                 <ul>
                     <li><a href="https://github.com/itscomputers">github/ itscomputers</a></li>

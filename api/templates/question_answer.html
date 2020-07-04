@@ -2,7 +2,13 @@
 
 {% block content %}
 
-<p class="question">{{ question }}</p>
+<p class="question">
+{{ question }}
+{% if number %}
+    <br />
+    {{ number }}
+{% endif %}
+</p>
 
 {% if answer %} 
     <p class="answer">{{ answer }}</p>
