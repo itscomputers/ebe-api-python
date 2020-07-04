@@ -25,6 +25,18 @@ EBE_DICT = {
         'question': 'how does it factor?',
         'answer': lambda x: methods.factorization(x, display=True),
     },
+    'two_squares': {
+        'order': 210,
+        'method': 'two_squares',
+        'question': 'as a sum of two squares?',
+        'answer': lambda x: methods.two_squares(x, display=True),
+    },
+    'four_squares': {
+        'order': 210,
+        'method': 'four_squares',
+        'question': 'as a sum of four squares?',
+        'answer': lambda x: methods.four_squares(x, display=True),
+    },
 }
 
 EBE_LIST = sorted(EBE_DICT.values(), key=lambda x: x['order']) 
@@ -33,7 +45,7 @@ EBE_LIST = sorted(EBE_DICT.values(), key=lambda x: x['order'])
 
 @api.route('/')
 def home():
-    return "<h1>ebe -- a number theory library in python</h1>"
+    return render_template('base.html', ebe_list=EBE_LIST)
 
 #-----------------------------
 
@@ -83,6 +95,28 @@ def factorization():
 @api.route('/factorization/<int:number>', methods=['GET', 'POST'])
 def factorization_specific(number):
     return build_route('factorization', number)
+
+#-----------------------------
+
+@api.route('/two_squares/', methods=['GET', 'POST'])
+@api.route('/two_squares', methods=['GET', 'POST'])
+def two_squares():
+    return build_route('two_squares')
+
+@api.route('/two_squares/<int:number>', methods=['GET', 'POST'])
+def two_squares_specific(number):
+    return build_route('two_squares', number)
+
+#-----------------------------
+
+@api.route('/four_squares/', methods=['GET', 'POST'])
+@api.route('/four_squares', methods=['GET', 'POST'])
+def four_squares():
+    return build_route('four_squares')
+
+@api.route('/four_squares/<int:number>', methods=['GET', 'POST'])
+def four_squares_specific(number):
+    return build_route('four_squares', number)
 
 #-----------------------------
 

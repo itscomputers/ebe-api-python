@@ -31,9 +31,19 @@ def factorization(number, display=False):
         return ' * '.join(map(str, factors))
     return factors
 
-def two_squares(number):
-    return Factorization.find_or_create(str(number)).two_squares()
+def two_squares(number, display=False):
+    squares = Factorization.find_or_create(str(number)).two_squares()
+    if display:
+        if squares is None:
+            return 'impossible!'
+        return ' + '.join(map(lambda x: '{}^2'.format(x), squares))
+    return squares
 
-def four_squares(number):
-    return Factorization.find_or_create(str(number)).four_squares()
+def four_squares(number, display=False):
+    squares = Factorization.find_or_create(str(number)).four_squares()
+    if display:
+        if squares is None:
+            return 'impossible!'
+        return ' + '.join(map(lambda x: '{}^2'.format(x), squares))
+    return squares
 
