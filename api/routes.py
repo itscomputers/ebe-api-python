@@ -10,30 +10,35 @@ EBE_DICT = {
     'is_prime': { 
         'order': 100, 
         'method': 'is_prime', 
+        'maximum': 10**50,
         'question': 'is it prime?',
         'answer': lambda x: methods.is_prime(x, display=True),
     },
     'next_prime': { 
         'order': 110, 
         'method': 'next_prime', 
+        'maximum': 10**50,
         'question': 'what\'s the next prime?', 
         'answer': lambda x: methods.next_prime(x),
     },
     'factorization': {
         'order': 200,
         'method': 'factorization',
+        'maximum': 10**25,
         'question': 'how does it factor?',
         'answer': lambda x: methods.factorization(x, display=True),
     },
     'two_squares': {
         'order': 210,
         'method': 'two_squares',
+        'maximum': 10**25,
         'question': 'as a sum of two squares?',
         'answer': lambda x: methods.two_squares(x, display=True),
     },
     'four_squares': {
         'order': 210,
         'method': 'four_squares',
+        'maximum': 10**25,
         'question': 'as a sum of four squares?',
         'answer': lambda x: methods.four_squares(x, display=True),
     },
@@ -53,11 +58,15 @@ def build_route(method, number=None):
     if request.method == 'POST':
         return redirect(url_for('{}_specific'.format(method), number=request.form['number']))
     method_details = EBE_DICT[method]
+    maximum = method_details['maximum']
+    if number is not None and number > maximum:
+        return redirect(url_for(method))
     question = method_details['question']
     answer = method_details['answer'](number) if number is not None else None
     return render_template(
         'question_answer.html', 
         number=number, 
+        maximum=maximum,
         question=question, 
         answer=answer, 
         ebe_list=EBE_LIST
