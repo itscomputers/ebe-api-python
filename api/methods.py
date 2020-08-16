@@ -1,7 +1,7 @@
 from random import randint
 
 from api import db, ebe
-from api.models import Prime, Factorization
+from api.models import Factorization
 
 def gcd(numbers):
     return ebe.gcd(*numbers)
@@ -12,18 +12,20 @@ def lcm(numbers):
 def bezout(numbers):
     return ebe.bezout(*numbers)
 
-def is_prime(number):
-    return Prime.find_or_create(str(number)).prime
+def is_prime(number, display=False):
+    primality = ebe.is_prime(number)
+    if display:
+        return 'yes' if primality else 'no'
+    return primality
 
 def next_prime(number):
-    prime = ebe.next_prime(number)
-    Prime.find_or_create(number=str(prime), attrs={'prime': True})
-    return prime
+    return ebe.next_prime(number)
 
 def random_prime(digits):
     lower = 10**(digits - 1)
     return next_prime(randint(lower, 10*lower))
 
+<<<<<<< HEAD
 def factorization(number):
     return Factorization.find_or_create(str(number)).factor_list()
 

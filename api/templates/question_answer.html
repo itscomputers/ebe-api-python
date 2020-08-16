@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article>
+    <p class="question">
+    {{ question }}
+    {% if number %}
+        <br />
+        {{ number }}
+    {% endif %}
+    </p>
+
+    {% if answer %}
+        <p class="answer">{{ answer }}</p>
+    {% endif %}
+
+    <form class="number-form" method="post">
+        <input 
+            type="number"
+            name="number"
+            id="number"
+            min="1"
+            max="{{ maximum }}"
+            placeholder="pick a number"
+            required
+            autofocus
+        />
+    </form>
+</article>
+{% endblock %}
