@@ -1,11 +1,8 @@
-class Config(object):
-    SECRET_KEY = "dont you wonder sometimes....about sound and vision" 
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
-    SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-        username="itscomputers",
-        password="this is a really cool password",
-        hostname="itscomputers.mysql.pythonanywhere-services.com",
-        databasename="itscomputers$ebe",
-    )
-    SQLALCHEMY_POOL_RECYCLE = 299
+import os
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+class Config(object):
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'its-a-history-report-not-a-babe-report'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'api.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
